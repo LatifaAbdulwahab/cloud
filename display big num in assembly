@@ -1,0 +1,71 @@
+; display big num
+
+org 100H
+.MODEl SMALL
+.STACK 100H
+.DATA
+
+msg1 db "Enter first number :$"
+
+msg2 db "Enter seconde number :$"
+
+
+.CODE
+MAIN PROC 
+mov ax, @data
+mov ds, ax
+
+;display first msg
+mov ah, 9
+lea dx,msg1
+int 21h
+ 
+;user will enter number1
+mov ah,1 
+int 21h
+
+;store al in bl to avoid loss
+mov bl,al
+
+;display seconde msg
+mov ah,2
+mov dl,0ah
+int 21h 
+
+mov ah,2
+mov dl,0dh
+int 21h 
+
+mov ah, 9
+lea dx,msg2
+int 21h 
+
+;user enter number2
+mov ah,1
+int 21h 
+
+;compare between al,bl
+cmp al, bl
+JLE less_al
+JG less_bl
+
+;al<bl
+less_al: 
+mov ah,2
+mov dl,al
+int 21h
+jmp endcmp
+ 
+;al>bl
+less_bl:
+mov ah, 2
+mov dl,bl
+int 21h
+jmp endcmp 
+
+endcmp:
+ 
+main endp
+end main
+
+ret
