@@ -1,0 +1,35 @@
+; Code for display hex digits
+
+org 100H
+.MODEl SMALL
+.STACK 100H
+.DATA
+;A)
+;identifi variable
+variable db 30h  
+
+.code 
+main proc
+;program will display hex digits [0=30h,9=39h| A=41h,F=46h]
+;create loop  
+mov cx,16
+jcxz skip ;jump if cx=0 
+
+Print: 
+mov ah,2
+mov dl,variable
+int 21h
+inc variable
+cmp variable,3ah ;3ah= :
+je jump  
+cmp variable,47h
+jge skip   
+loop Print 
+jump: ;skip symbols
+mov variable,41h 
+loop print
+
+skip: 
+main endp
+end main
+ret
