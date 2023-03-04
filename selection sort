@@ -1,0 +1,79 @@
+/*
+ * code of selection sort
+ */
+package javaapplication1;
+
+import java.util.Scanner;
+
+public class SelectionSort {
+
+    public static void main(String[] args) {
+        //create scanner object
+        Scanner input = new Scanner(System.in);
+        
+        //ask user to enter array size 
+        System.out.print("Enter the number of elements: ");
+        int size = input.nextInt();
+        
+        //create array 
+        int array[] = new int[size];
+        
+        //ask user to enter elements of array
+        System.out.print("Enter all the numbers: ");
+        for (int i = 0; i < size; i++) {
+            array[i] = input.nextInt();
+        }
+        
+        //call sort method (upper to lower)
+        SelectionSortUpper(array, size);
+        
+        //print sorted array
+        System.out.print("Sorted array upper to lower : ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(array[i] + " ");
+        }
+        
+        //call sort method ( lower to upper )
+        SelectionSortLower(array, size);
+        
+        //print sorted array
+        System.out.print("\nSorted array lower to upper : ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(array[i] + " ");
+        }
+    }
+
+    //This method will sort array from upper to lower 
+    public static void SelectionSortUpper(int arr[], int arr_size) {
+        int i, j;
+        int max, temp;
+        for (i = 0; i < arr_size - 1; i++) {
+            max = i;
+            for (j = i + 1; j < arr_size; j++) {
+                if (arr[j] > arr[max]) {
+                    max = j;
+                }
+            }
+            temp = arr[i];
+            arr[i] = arr[max];
+            arr[max] = temp;
+        }
+    }
+
+    //This method will sort array from lower to upper 
+    public static void SelectionSortLower(int arr[], int arr_size) {
+        int i, j;
+        int min, temp;
+        for (i = 0; i < arr_size - 1; i++) {
+            min = i;
+            for (j = i + 1; j < arr_size; j++) {
+                if (arr[j] < arr[min]) {
+                    min = j;
+                }
+            }
+            temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+    }
+}
